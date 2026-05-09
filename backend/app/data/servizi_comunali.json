@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Carta d'identita elettronica",
+    "office": "Ufficio Anagrafe",
+    "description": "Rilascio e rinnovo della carta d'identita elettronica per i cittadini residenti.",
+    "required_documents": ["Documento di identita precedente", "Tessera sanitaria", "Fototessera recente"],
+    "opening_hours": "Lunedi-Venerdi 09:00-12:30, Martedi e Giovedi anche 14:30-16:30",
+    "location": "Piano terra, Palazzo Comunale, Via Roma 1"
+  },
+  {
+    "title": "Cambio di residenza",
+    "office": "Ufficio Anagrafe",
+    "description": "Procedura per dichiarare il trasferimento della residenza in un nuovo indirizzo.",
+    "required_documents": ["Modulo di dichiarazione", "Documento di identita", "Contratto di affitto o titolo di proprieta"],
+    "opening_hours": "Lunedi-Venerdi 09:00-12:30",
+    "location": "Piano terra, Palazzo Comunale, Via Roma 1"
+  },
+  {
+    "title": "Certificati anagrafici",
+    "office": "Ufficio Servizi Demografici",
+    "description": "Emissione di certificati di stato di famiglia, residenza, nascita e cittadinanza.",
+    "required_documents": ["Documento di identita", "Dati anagrafici della persona interessata"],
+    "opening_hours": "Lunedi, Mercoledi e Venerdi 09:00-13:00",
+    "location": "Piano terra, Palazzo Comunale, Via Roma 1"
+  },
+  {
+    "title": "Tributi comunali",
+    "office": "Ufficio Tributi",
+    "description": "Informazioni e assistenza su IMU, TARI, accertamenti e pagamenti dei tributi comunali.",
+    "required_documents": ["Codice fiscale", "Eventuale avviso di pagamento", "Documentazione catastale"],
+    "opening_hours": "Lunedi-Venerdi 08:30-12:30",
+    "location": "Secondo piano, Palazzo Comunale, Via Roma 1"
+  },
+  {
+    "title": "Prenotazione appuntamento ufficio anagrafe",
+    "office": "Ufficio Anagrafe",
+    "description": "Prenotazione di un appuntamento per servizi anagrafici e documenti di identita.",
+    "required_documents": ["Documento di identita", "Eventuale precedente pratica"],
+    "opening_hours": "Servizio su appuntamento, Lunedi-Venerdi 09:00-12:30",
+    "location": "Sportello 3, Piano terra, Palazzo Comunale, Via Roma 1"
+  }
+]
