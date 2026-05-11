@@ -85,6 +85,22 @@ Usa l'URL pubblico generato da ngrok per configurare i custom tools di Vapi.
 - `POST /tools/create_appointment` per confermare una prenotazione
 - `GET /appointments` per ispezionare gli appuntamenti creati in memoria
 
+## 7. Scraping dei servizi comunali
+
+Per generare il JSON da usare nel RAG locale puoi eseguire lo scraper:
+
+```bash
+python -m app.scrape_codroipo_services --output app/data/servizi_comunali_codroipo.json
+```
+
+Lo script parte da `https://www.comune.codroipo.ud.it/it/servizi`, visita le pagine dei servizi e salva un file JSON nella cartella `app/data/`.
+
+Se è la prima volta, installa anche il browser usato da Playwright:
+
+```bash
+python -m playwright install chromium
+```
+
 ## Note
 
 - Gli appuntamenti sono salvati solo in memoria: si azzerano al riavvio del server.

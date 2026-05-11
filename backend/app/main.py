@@ -1,15 +1,35 @@
 from __future__ import annotations
 
+import os
 from datetime import date as date_type
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app.appointments import store
 from app.services_data import search_services
+from app.vapi_client import VapiClient
+
+load_dotenv()
 
 
 app = FastAPI(title="Municipality Voicebot API", version="0.1.0")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Mount static files for UI
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 
 class SearchServicesRequest(BaseModel):
@@ -119,3 +139,45 @@ def tool_create_appointment(payload: CreateAppointmentRequest) -> CreateAppointm
 @app.get("/appointments", response_model=AppointmentsResponse)
 def list_appointments() -> AppointmentsResponse:
     return AppointmentsResponse(appointments=[AppointmentItem(**appointment) for appointment in store.appointments])
+
+
+@app.get("/api/appointments")
+def api_list_appointments() -> list[dict]:
+    """API endpoint for UI - returns appointments as a plain list."""
+    return store.appointments
+
+
+class ChatRequest(BaseModel):
+    message: str = Field(min_length=1)
+
+
+class ChatResponse(BaseModel):
+    reply: str
+    error: str | None = None
+
+
+@app.get("/")
+def serve_ui() -> FileResponse:
+    """Serve the main HTML UI."""
+    return FileResponse("app/static/index.html")
+
+
+@app.post("/api/chat", response_model=ChatResponse)
+def api_chat(request: ChatRequest) -> ChatResponse:
+    """Chat endpoint that integrates with Vapi AI assistant."""
+    try:
+        vapi_key = os.getenv("VAPI_KEY")
+        if not vapi_key:
+            return ChatResponse(reply="", error="VAPI_KEY not configured")
+
+        client = VapiClient(vapi_key)
+        response = client.chat(request.message)
+
+        if "error" in response:
+            return ChatResponse(reply="", error=response.get("error", "Unknown error"))
+
+        # Extract reply from Vapi response
+        reply = response.get("message") or response.get("reply") or str(response)
+        return ChatResponse(reply=reply)
+    except Exception as e:
+        return ChatResponse(reply="", error=str(e))

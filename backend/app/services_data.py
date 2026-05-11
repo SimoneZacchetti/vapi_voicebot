@@ -7,10 +7,15 @@ from typing import Any
 
 
 DATA_FILE = Path(__file__).resolve().parent / "data" / "servizi_comunali.json"
+SCRAPED_DATA_FILE = Path(__file__).resolve().parent / "data" / "servizi_comunali_codroipo.json"
+
+
+def _data_file() -> Path:
+    return SCRAPED_DATA_FILE if SCRAPED_DATA_FILE.exists() else DATA_FILE
 
 
 def load_services() -> list[dict[str, Any]]:
-    with DATA_FILE.open("r", encoding="utf-8") as handle:
+    with _data_file().open("r", encoding="utf-8") as handle:
         return json.load(handle)
 
 
