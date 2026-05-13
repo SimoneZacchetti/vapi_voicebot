@@ -1,0 +1,129 @@
+{
+  "name": "Municipio Codroipo Bot",
+  "model": {
+    "provider": "openai",
+    "model": "gpt-4",
+    "temperature": 0.7,
+    "maxTokens": 1000
+  },
+  "voice": {
+    "provider": "openai",
+    "voiceId": "nova"
+  },
+  "firstMessage": "Ciao! 👋 Sono l'assistente IA per i servizi del Comune di Codroipo. Come posso aiutarti oggi?",
+  "systemPrompt": "Tu sei un assistente IA amichevole e professionale per i servizi comunali del Comune di Codroipo.\n\nIl tuo ruolo è aiutare i cittadini a:\n1. Trovare servizi comunali cercando per parola chiave\n2. Verificare la disponibilità di appuntamenti\n3. Prenotare appuntamenti\n\nIstruzioni importanti:\n- Rispondi sempre in italiano\n- Quando l'utente chiede info su servizi, usa lo strumento \"search_services\"\n- Quando serve controllare disponibilità, usa \"check_availability\"\n- Per prenotare, usa \"create_appointment\"\n- Sii cortese, efficiente e professionale\n- Se l'utente non specifica una data, chiedi di fornirla nel formato YYYY-MM-DD\n- Per gli orari disponibili, utilizza sempre il formato HH:MM (es. 09:30)\n- Se un appuntamento non può essere prenotato, spiega il motivo e offri alternative\n\nCerca sempre di fornire risposte complete usando i tool disponibili.",
+  "tools": [
+    {
+      "name": "search_services",
+      "type": "server",
+      "description": "Cerca servizi comunali per parola chiave. Usa questo tool quando l'utente chiede informazioni su servizi disponibili.",
+      "server": {
+        "url": "https://your-ngrok-url-or-domain/tools/search_services",
+        "method": "POST"
+      },
+      "messages": [
+        {
+          "type": "request-start",
+          "content": "Ricerca in corso..."
+        },
+        {
+          "type": "request-complete",
+          "content": "Ho trovato i risultati."
+        }
+      ],
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Parola chiave per cercare servizi (es. 'anagrafe', 'tasse', 'patente')"
+          }
+        },
+        "required": ["query"]
+      }
+    },
+    {
+      "name": "check_availability",
+      "type": "server",
+      "description": "Controlla disponibilità appuntamenti per un ufficio in una data specifica.",
+      "server": {
+        "url": "https://your-ngrok-url-or-domain/tools/check_availability",
+        "method": "POST"
+      },
+      "messages": [
+        {
+          "type": "request-start",
+          "content": "Verifico la disponibilità..."
+        },
+        {
+          "type": "request-complete",
+          "content": "Ho controllato gli slot disponibili."
+        }
+      ],
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "office": {
+            "type": "string",
+            "description": "Nome dell'ufficio/servizio (es. 'Anagrafe e stato civile')"
+          },
+          "date": {
+            "type": "string",
+            "description": "Data in formato YYYY-MM-DD (es. 2026-05-20)"
+          }
+        },
+        "required": ["office", "date"]
+      }
+    },
+    {
+      "name": "create_appointment",
+      "type": "server",
+      "description": "Crea un nuovo appuntamento presso un ufficio comunale.",
+      "server": {
+        "url": "https://your-ngrok-url-or-domain/tools/create_appointment",
+        "method": "POST"
+      },
+      "messages": [
+        {
+          "type": "request-start",
+          "content": "Creo l'appuntamento..."
+        },
+        {
+          "type": "request-complete",
+          "content": "Appuntamento confermato!"
+        }
+      ],
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome completo del cittadino"
+          },
+          "office": {
+            "type": "string",
+            "description": "Ufficio/servizio desiderato"
+          },
+          "service": {
+            "type": "string",
+            "description": "Tipo di servizio richiesto (es. 'Carta d'identità elettronica')"
+          },
+          "date": {
+            "type": "string",
+            "description": "Data in formato YYYY-MM-DD"
+          },
+          "time": {
+            "type": "string",
+            "description": "Orario in formato HH:MM (es. 09:30)"
+          }
+        },
+        "required": ["name", "office", "service", "date", "time"]
+      }
+    }
+  ],
+  "clientMessages": ["assistant.speechStarted", "transcript", "speech-update"],
+  "language": "it-IT",
+  "hipaaEnabled": false,
+  "forwardingPhoneNumber": null,
+  "variableValues": {}
+}

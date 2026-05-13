@@ -24,6 +24,7 @@ Copia `.env.example` in `.env` e inserisci la tua chiave Vapi:
 cp .env.example .env
 # Edita .env con:
 # VAPI_KEY=sk-your-actual-vapi-key
+# VAPI_PUBLIC_KEY=pk-your-public-key
 # VAPI_ASSISTANT_ID=your-assistant-id
 ```
 

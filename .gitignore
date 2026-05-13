@@ -112,3 +112,4 @@ yarn-error.log
 # Misc
 *.log
 *.sqlite3
+booking_page.json

@@ -7,6 +7,8 @@ Prototipo FastAPI per un voicebot Vapi dedicato ai servizi comunali.
 - Python 3.10+ consigliato
 - `pip`
 - `ngrok` per esporre il backend in locale
+- `VAPI_KEY` per endpoint server-side chat
+- `VAPI_PUBLIC_KEY` e `VAPI_ASSISTANT_ID` per voice web
 
 ## 1. Creare il virtual environment
 
@@ -33,6 +35,12 @@ Verifica rapida:
 
 ```bash
 curl http://127.0.0.1:8000/health
+```
+
+Config voice:
+
+```bash
+curl http://127.0.0.1:8000/api/config
 ```
 
 ## 4. Testare gli endpoint con curl
@@ -85,6 +93,32 @@ Usa l'URL pubblico generato da ngrok per configurare i custom tools di Vapi.
 - `POST /tools/create_appointment` per confermare una prenotazione
 - `GET /appointments` per ispezionare gli appuntamenti creati in memoria
 
+## 6. Voice web con Vapi
+
+La UI in `app/static/index.html` usa `@vapi-ai/web` lato browser.
+
+Serve impostare:
+
+```bash
+export VAPI_PUBLIC_KEY="your_public_key"
+export VAPI_ASSISTANT_ID="your_assistant_id"
+```
+
+Flusso:
+
+- clic `🎙️ Avvia Voice`
+- browser apre microfono
+- Vapi gestisce speech-to-text e text-to-speech
+- clic `⏹️ Ferma Voice` per chiudere sessione
+
+Se vuoi creare assistant con `clientMessages` utili per caption:
+
+```json
+{
+  "clientMessages": ["assistant.speechStarted", "transcript", "speech-update"]
+}
+```
+
 ## 7. Scraping dei servizi comunali
 
 Per generare il JSON da usare nel RAG locale puoi eseguire lo scraper:
@@ -106,3 +140,4 @@ python -m playwright install chromium
 - Gli appuntamenti sono salvati solo in memoria: si azzerano al riavvio del server.
 - Gli slot disponibili sono hardcoded e vengono rimossi se gia prenotati.
 - La ricerca servizi usa solo parole chiave su titolo, descrizione, ufficio e documenti richiesti.
+- La voice UI richiede browser con permessi microfono.

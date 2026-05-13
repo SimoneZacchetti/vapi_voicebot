@@ -232,6 +232,47 @@
             margin-right: 5px;
         }
 
+        /* Hide Vapi floating widget button to keep only Voice card controls. */
+        button[aria-label="Icon"] {
+            display: none !important;
+        }
+
+        .voice-toggle-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: none;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .voice-toggle-btn.idle {
+            background: #4caf50;
+            color: white;
+        }
+
+        .voice-toggle-btn.idle:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .voice-toggle-btn.active {
+            background: #f44336;
+            color: white;
+        }
+
+        .voice-toggle-btn.active:hover {
+            background: #da190b;
+            transform: scale(1.05);
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 flex-direction: column;
@@ -295,6 +336,7 @@
                     </div>
                 </div>
 
+                <!--
                 <div class="sidebar-section">
                     <h3>Informazioni</h3>
                     <small>
@@ -302,6 +344,14 @@
                         <strong>Chat:</strong> FastAPI + Vapi AI<br>
                         <strong>Lingua:</strong> Italiano
                     </small>
+                </div>
+                -->
+                <div class="sidebar-section">
+                    <h3>Voce</h3>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+                        <button id="voiceToggleBtn" class="voice-toggle-btn idle">🎙️</button>
+                        <small style="text-align:center;color:#666;">Premi per parlare</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -311,16 +361,21 @@
         const API_BASE = window.location.origin;
 
         async function checkBackendStatus() {
+            const backendStatusEl = document.getElementById("backendStatus");
+            if (!backendStatusEl) {
+                return;
+            }
+
             try {
                 const res = await fetch(`${API_BASE}/health`);
                 if (res.ok) {
-                    document.getElementById("backendStatus").textContent = "🟢 Online";
-                    document.getElementById("backendStatus").style.color = "#4caf50";
+                    backendStatusEl.textContent = "🟢 Online";
+                    backendStatusEl.style.color = "#4caf50";
                 } else {
-                    document.getElementById("backendStatus").textContent = "🔴 Errore";
+                    backendStatusEl.textContent = "🔴 Errore";
                 }
             } catch {
-                document.getElementById("backendStatus").textContent = "🔴 Offline";
+                backendStatusEl.textContent = "🔴 Offline";
             }
         }
 
@@ -394,7 +449,7 @@
 
         async function loadAppointments() {
             try {
-                const res = await fetch(`${API_BASE}/appointments`);
+                const res = await fetch(`${API_BASE}/api/appointments`);
                 const data = await res.json();
 
                 const list = document.getElementById("appointmentsList");
@@ -432,6 +487,127 @@
 
         // Auto-refresh appointments every 10 seconds
         setInterval(loadAppointments, 10000);
+
+        // Vapi Web SDK voice integration
+        let vapiInstance = null;
+        let vapiSdkPromise = null;
+        let vapiConfig = null;
+
+        function loadVapiScript() {
+            if (window.vapiSDK) {
+                return Promise.resolve();
+            }
+
+            if (!vapiSdkPromise) {
+                vapiSdkPromise = new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js';
+                    script.async = true;
+                    script.defer = true;
+                    script.onload = () => resolve();
+                    script.onerror = () => reject(new Error('Unable to load Vapi SDK script'));
+                    document.head.appendChild(script);
+                });
+            }
+
+            return vapiSdkPromise;
+        }
+
+        async function initVapiSdk() {
+            try {
+                if (!vapiConfig) {
+                    const res = await fetch(`${API_BASE}/api/config`);
+                    vapiConfig = await res.json();
+                }
+
+                if (!vapiConfig.publicKey || !vapiConfig.assistantId) {
+                    console.error('VAPI public key o assistant id mancanti');
+                    return;
+                }
+
+                await loadVapiScript();
+
+                vapiInstance = window.vapiSDK.run({
+                    apiKey: vapiConfig.publicKey,
+                    assistant: vapiConfig.assistantId,
+                    config: {},
+                });
+
+                // Create server-side conversation session to keep memory
+                try {
+                    const sessRes = await fetch(`${API_BASE}/api/session`, { method: 'POST' });
+                    const sessJson = await sessRes.json();
+                    if (sessJson && sessJson.conversationId) {
+                        vapiConfig.conversationId = sessJson.conversationId;
+                    }
+                } catch (e) {
+                    console.warn('Unable to create conversation session:', e);
+                }
+
+                vapiInstance.on('message', async (message) => {
+                    if (message.type === 'transcript') {
+                        const role = message.role === 'assistant' ? 'bot' : 'user';
+                        const text = message.transcript || '';
+                        addMessage(text, role);
+
+                        // If user transcript, forward to backend chat with conversationId
+                        if (role === 'user' && text && vapiConfig && vapiConfig.conversationId) {
+                            try {
+                                const res = await fetch(`${API_BASE}/api/chat`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ message: text, conversationId: vapiConfig.conversationId }),
+                                });
+                                const data = await res.json();
+                                if (data && data.reply) {
+                                    addMessage(data.reply, 'bot');
+                                }
+                            } catch (e) {
+                                console.error('Error forwarding transcript to backend chat:', e);
+                            }
+                        }
+                    }
+
+                    if (message.type === 'assistant.speechStarted') {
+                        const text = message.text || '';
+                        if (text) addMessage(text, 'bot');
+                    }
+                });
+            } catch (err) {
+                console.error('Errore inizializzazione SDK:', err);
+            }
+        }
+
+        document.getElementById('voiceToggleBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('voiceToggleBtn');
+            
+            // If not initialized yet, initialize and start
+            if (!vapiInstance) {
+                await initVapiSdk();
+                if (!vapiInstance) return;
+            }
+
+            // Toggle state
+            if (btn.classList.contains('idle')) {
+                // Start voice
+                try {
+                    await vapiInstance.start(vapiConfig.assistantId);
+                    btn.classList.remove('idle');
+                    btn.classList.add('active');
+                } catch (err) {
+                    console.error('Start voice failed:', err);
+                }
+            } else {
+                // Stop voice
+                try {
+                    if (vapiInstance) vapiInstance.stop();
+                    btn.classList.remove('active');
+                    btn.classList.add('idle');
+                } catch (err) {
+                    console.error('Stop voice failed:', err);
+                }
+            }
+        });
     </script>
 </body>
 </html>
