@@ -201,24 +201,29 @@
             color: #666;
         }
 
-        .quick-actions {
+        .appointments-toolbar {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
             gap: 8px;
+            margin-bottom: 8px;
         }
 
-        .quick-actions button {
-            padding: 10px;
+        .appointments-toolbar h3 {
+            margin: 0;
+        }
+
+        .btn-refresh {
+            padding: 6px 10px;
+            font-size: 11px;
             background: white;
             color: #667eea;
             border: 1px solid #667eea;
             border-radius: 6px;
-            font-size: 12px;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
-        .quick-actions button:hover {
+        .btn-refresh:hover {
             background: #667eea;
             color: white;
         }
@@ -313,24 +318,11 @@
             </div>
 
             <div class="sidebar">
-                <div class="sidebar-section quick-actions">
-                    <h3>Azioni Rapide</h3>
-                    <button onclick="quickAction('Quali sono i servizi disponibili?')">
-                        📋 Servizi
-                    </button>
-                    <button onclick="quickAction('Dimmi gli orari di apertura')">
-                        🕐 Orari
-                    </button>
-                    <button onclick="quickAction('Voglio prenotare un appuntamento')">
-                        📅 Prenota
-                    </button>
-                    <button onclick="loadAppointments()">
-                        🔄 Ricarica Appuntamenti
-                    </button>
-                </div>
-
                 <div class="sidebar-section">
-                    <h3><span class="status-indicator"></span>Appuntamenti</h3>
+                    <div class="appointments-toolbar">
+                        <h3><span class="status-indicator"></span>Appuntamenti</h3>
+                        <button type="button" class="btn-refresh" onclick="loadAppointments()">Aggiorna</button>
+                    </div>
                     <div class="appointments-list" id="appointmentsList">
                         <small style="color: #999;">Nessun appuntamento</small>
                     </div>
@@ -442,11 +434,6 @@
             }
         }
 
-        function quickAction(query) {
-            document.getElementById("msgInput").value = query;
-            sendMessage();
-        }
-
         async function loadAppointments() {
             try {
                 const res = await fetch(`${API_BASE}/api/appointments`);
@@ -484,9 +471,6 @@
                 "bot"
             );
         });
-
-        // Auto-refresh appointments every 10 seconds
-        setInterval(loadAppointments, 10000);
 
         // Vapi Web SDK voice integration
         let vapiInstance = null;

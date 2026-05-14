@@ -13,7 +13,8 @@ from playwright.sync_api import sync_playwright
 
 
 START_URL = "https://www.comune.codroipo.ud.it/it/servizi"
-DATA_DIR = Path(__file__).resolve().parent / "data"
+_BACKEND_ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = _BACKEND_ROOT / "app" / "data"
 OUTPUT_FILE = DATA_DIR / "servizi_comunali_codroipo.json"
 
 LABEL_PATTERNS = {

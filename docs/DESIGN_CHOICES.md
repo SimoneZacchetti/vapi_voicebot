@@ -146,7 +146,7 @@
 
 ## Testing Strategy
 
-1. **Unit tests**: Tool endpoints tested with curl (see README.md examples)
+1. **Unit tests**: Tool endpoints tested with curl (see [README.md](../README.md) examples)
 2. **Integration tests**: Vapi dashboard voice tests (see VAPI_SETUP.md "Test Voice Interaction")
 3. **Edge case manual testing:**
    - Missing date → Agent asks
@@ -159,21 +159,25 @@
 ```
 backend/
 ├── app/
-│   ├── main.py           # FastAPI app, all endpoints
-│   ├── vapi_client.py    # HTTP client for Vapi chat API (server-side chat fallback)
-│   ├── appointments.py   # In-memory appointment storage + slot management
-│   ├── services_data.py  # Keyword search + service retrieval
-│   ├── scrape_codroipo_services.py  # Playwright web scraper
-│   ├── data/
-│   │   ├── servizi_comunali.json          # Fallback (generic)
-│   │   └── servizi_comunali_codroipo.json # Scraped (live, optional)
-│   └── static/
-│       └── index.html    # Frontend (chat + voice UI)
-├── requirements.txt      # Python deps
-└── Dockerfile            # Container config
+│   ├── main.py
+│   ├── routers/          # tools, chat, appointments
+│   ├── schemas.py
+│   ├── vapi_client.py
+│   ├── appointments.py
+│   ├── services_data.py
+│   └── data/
+│       ├── servizi_comunali.json
+│       └── servizi_comunali_codroipo.json
+├── scripts/              # Playwright scrapers
+├── requirements.txt
+└── Dockerfile
+frontend/
+├── index.html            # Chat + voice UI
+├── nginx.conf            # Static + reverse proxy to backend (Compose)
+└── Dockerfile
 ```
 
-**Rationale:** Single-file main.py (no separate route files) acceptable for ~5 endpoints. Easy to evaluate. Production: split into blueprints (appointments.py routes, services.py routes, tools.py routes).
+**Rationale:** Docker Compose expects separate frontend/backend services; Nginx keeps browser same-origin for `/api/*`. Local dev: uvicorn serves `frontend/index.html` on `/`.
 
 ## Why Vapi Web SDK (Client-side Voice)?
 

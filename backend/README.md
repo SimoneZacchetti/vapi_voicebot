@@ -95,7 +95,7 @@ Usa l'URL pubblico generato da ngrok per configurare i custom tools di Vapi.
 
 ## 6. Voice web con Vapi
 
-La UI in `app/static/index.html` usa `@vapi-ai/web` lato browser.
+La UI in `frontend/index.html` (servita in dev da FastAPI su `/`, in Docker dal servizio `frontend`) usa `@vapi-ai/web` lato browser.
 
 Serve impostare:
 
@@ -121,13 +121,13 @@ Se vuoi creare assistant con `clientMessages` utili per caption:
 
 ## 7. Scraping dei servizi comunali
 
-Per generare il JSON da usare nel RAG locale puoi eseguire lo scraper:
+Per generare il JSON da usare nel RAG locale puoi eseguire lo scraper (da `backend/`):
 
 ```bash
-python -m app.scrape_codroipo_services --output app/data/servizi_comunali_codroipo.json
+python scripts/scrape_codroipo_services.py
 ```
 
-Lo script parte da `https://www.comune.codroipo.ud.it/it/servizi`, visita le pagine dei servizi e salva un file JSON nella cartella `app/data/`.
+Opzionale: `--output path/custom.json`. Default: `app/data/servizi_comunali_codroipo.json`.
 
 Se è la prima volta, installa anche il browser usato da Playwright:
 

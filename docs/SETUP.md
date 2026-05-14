@@ -67,7 +67,7 @@ Accedi a: http://localhost:8000
 
 **app/scrape_codroipo_services.py** - Web scraper Playwright per servizi comunali
 
-**app/static/index.html** - UI web moderna con chat interface
+**frontend/index.html** - UI web moderna con chat interface (proxy verso API in `docker compose`)
 
 ## Test Endpoint
 
