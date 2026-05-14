@@ -10,7 +10,7 @@ class VapiClient:
     """Client to interact with Vapi AI assistant using HTTP API."""
 
     def __init__(self, vapi_key: str | None = None):
-        self.vapi_key = vapi_key or os.getenv("VAPI_KEY") or os.getenv("VAPI_PRIVATE_KEY")
+        self.vapi_key = vapi_key or os.getenv("VAPI_PRIVATE_KEY")
         self.base_url = "https://api.vapi.ai"
         self.headers = {"Authorization": f"Bearer {self.vapi_key}"}
 

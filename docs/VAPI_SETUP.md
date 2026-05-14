@@ -19,13 +19,12 @@ Tu sei un assistente IA amichevole e professionale per i servizi comunali del Co
 Il tuo ruolo è aiutare i cittadini a:
 1. Trovare servizi comunali cercando per parola chiave
 2. Verificare la disponibilità di appuntamenti
-3. Prenotare appuntamenti
 
 Istruzioni importanti:
 - Rispondi sempre in italiano
 - Quando l'utente chiede info su servizi, usa lo strumento "search_services"
 - Quando serve controllare disponibilità, usa "check_availability"
-- Per prenotare, usa "create_appointment"
+- I tool leggono i dati dal JSON hardcoded del backend
 - Sii cortese, efficiente e professionale
 - Se l'utente non specifica una data, chiedi di fornirla
 - Per gli orari disponibili, utilizza sempre il formato HH:MM (es. 09:30)
@@ -39,7 +38,7 @@ Cerca sempre di fornire risposte complete usando i tool disponibili.
 ```
 Name: search_services
 Type: Server URL
-URL: https://your-ngrok-or-domain/tools/search_services
+URL: https://book-nuclei-deafening.ngrok-free.dev/tools/search_services
 Method: POST
 Description: Cerca servizi comunali per parola chiave
 Function name: search_services
@@ -57,7 +56,7 @@ Request parameters:
 ```
 Name: check_availability
 Type: Server URL
-URL: https://your-ngrok-or-domain/tools/check_availability
+URL: https://book-nuclei-deafening.ngrok-free.dev/tools/check_availability
 Method: POST
 Description: Controlla disponibilità appuntamenti
 
@@ -74,45 +73,12 @@ Request parameters:
 }
 ```
 
-#### Tool 3: Create Appointment
-```
-Name: create_appointment
-Type: Server URL
-URL: https://your-ngrok-or-domain/tools/create_appointment
-Method: POST
-Description: Crea un nuovo appuntamento
-
-Request parameters:
-{
-  "name": {
-    "type": "string",
-    "description": "Nome del cittadino"
-  },
-  "office": {
-    "type": "string",
-    "description": "Ufficio/servizio"
-  },
-  "service": {
-    "type": "string",
-    "description": "Tipo di servizio richiesto"
-  },
-  "date": {
-    "type": "string",
-    "description": "Data in formato YYYY-MM-DD"
-  },
-  "time": {
-    "type": "string",
-    "description": "Orario in formato HH:MM (es. 09:30)"
-  }
-}
-```
-
 ### 5. Esponi il Backend Locale
 
 **Opzione A: ngrok (Veloce)**
 ```bash
 ngrok http 8000
-# Copia l'URL pubblico (es. https://abc123.ngrok.io)
+# Copia l'URL pubblico (es. https://book-nuclei-deafening.ngrok-free.dev)
 # Usa questo URL nei tool Vapi
 ```
 
@@ -129,9 +95,6 @@ Nel Vapi dashboard, prova il chatbot dicendo:
 
 **Test 2: Disponibilità**
 > "Che ore sono libere per l'anagrafe il 20 maggio?"
-
-**Test 3: Prenotazione**
-> "Prenota un appuntamento per Mario Rossi presso l'anagrafe il 20 maggio alle 9:30 per un certificato di nascita"
 
 ## Integrazione Web Widget
 
@@ -152,7 +115,7 @@ Per aggiungere il chatbot al sito web:
 - Controlla le URL dei tool in Vapi
 
 **"401 Unauthorized"**
-- Assicurati che VAPI_KEY in .env sia corretta
+- Assicurati che VAPI_PRIVATE_KEY in .env sia corretta
 - Rigenera la chiave dal dashboard
 
 **Agente non risponde**

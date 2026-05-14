@@ -1,0 +1,29 @@
+{
+  "tools": [
+    {
+      "tool_name": "search_services",
+      "description": "Lista o ricerca dei servizi comunali disponibili dal JSON hardcoded",
+      "request_url": "https://book-nuclei-deafening.ngrok-free.dev/tools/search_services",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body_sample": {
+        "query": ""
+      }
+    },
+    {
+      "tool_name": "check_availability",
+      "description": "Verifica disponibilità prenotazioni per ufficio e data",
+      "request_url": "https://book-nuclei-deafening.ngrok-free.dev/tools/check_availability",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body_sample": {
+        "office": "<nome ufficio, es. 'Ufficio Anagrafe e Stato Civile'>",
+        "date": "YYYY-MM-DD"
+      }
+    }
+  ]
+}

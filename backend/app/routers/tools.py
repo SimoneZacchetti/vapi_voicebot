@@ -18,8 +18,9 @@ router = APIRouter(tags=["tools"])
 
 
 @router.post("/tools/search_services", response_model=SearchServicesResponse)
-def tool_search_services(payload: SearchServicesRequest) -> SearchServicesResponse:
-    matches = search_services(payload.query)
+def tool_search_services(payload: SearchServicesRequest | None = None) -> SearchServicesResponse:
+    query = payload.query if payload else ""
+    matches = search_services(query)
 
     if not matches:
         return SearchServicesResponse(

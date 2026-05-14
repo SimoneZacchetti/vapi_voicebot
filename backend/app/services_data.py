@@ -6,30 +6,12 @@ from pathlib import Path
 from typing import Any
 
 
-DATA_FILE = Path(__file__).resolve().parent / "data" / "servizi_comunali.json"
-SCRAPED_DATA_FILE = Path(__file__).resolve().parent / "data" / "servizi_comunali_codroipo.json"
+HARDCODED_DATA_FILE = Path(__file__).resolve().parent / "data" / "servizi_comunali_hardcoded.json"
 
 
 def _data_file() -> Path:
-    """Use scraped JSON only if at least one row has text fields; else `servizi_comunali.json`."""
-    if not SCRAPED_DATA_FILE.is_file():
-        return DATA_FILE
-    try:
-        raw = json.loads(SCRAPED_DATA_FILE.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
-        return DATA_FILE
-    if not isinstance(raw, list) or not raw:
-        return DATA_FILE
-    for item in raw:
-        if not isinstance(item, dict):
-            continue
-        if (item.get("description") or "").strip():
-            return SCRAPED_DATA_FILE
-        if item.get("required_documents"):
-            return SCRAPED_DATA_FILE
-        if (item.get("opening_hours") or "").strip():
-            return SCRAPED_DATA_FILE
-    return DATA_FILE
+    """Use hardcoded municipal services JSON directly."""
+    return HARDCODED_DATA_FILE
 
 
 def load_services() -> list[dict[str, Any]]:
@@ -41,12 +23,14 @@ def _normalize(text: str) -> list[str]:
     return re.findall(r"[a-z0-9]+", text.lower())
 
 
-def search_services(query: str, limit: int = 3) -> list[dict[str, Any]]:
+def search_services(query: str = "", limit: int = 3) -> list[dict[str, Any]]:
     query_tokens = _normalize(query)
-    if not query_tokens:
-        return []
 
     services = load_services()
+
+    if not query_tokens:
+        return services[:limit]
+
     scored_services: list[tuple[int, dict[str, Any]]] = []
 
     for service in services:

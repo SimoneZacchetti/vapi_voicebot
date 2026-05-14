@@ -51,7 +51,7 @@ Il PDF menziona anche DB separato come plus: qui non c’è (appuntamenti in-mem
 
 Imposta variabili in `.env`:
 
-- `VAPI_PRIVATE_KEY` (o `VAPI_KEY`)
+- `VAPI_PRIVATE_KEY`
 - `VAPI_PUBLIC_KEY`
 - `VAPI_ASSISTANT_ID`
 

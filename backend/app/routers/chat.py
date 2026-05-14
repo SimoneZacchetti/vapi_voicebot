@@ -34,9 +34,9 @@ def extract_vapi_reply(response: dict) -> str:
 def api_chat(request: ChatRequest) -> ChatResponse:
     """Chat endpoint that integrates with Vapi AI assistant."""
     try:
-        vapi_key = os.getenv("VAPI_KEY") or os.getenv("VAPI_PRIVATE_KEY") #TODO tenere solo una, verificare se deve essere pubblica o privata
+        vapi_key = os.getenv("VAPI_PRIVATE_KEY")
         if not vapi_key:
-            return ChatResponse(reply="", error="VAPI_KEY not configured")
+            return ChatResponse(reply="", error="VAPI_PRIVATE_KEY not configured")
 
         client = VapiClient(vapi_key)
         if getattr(request, "conversationId", None):
@@ -65,9 +65,9 @@ def api_config() -> dict:
 def api_session_create() -> dict:
     """Create a conversation session via Vapi and return conversation id."""
     try:
-        vapi_key = os.getenv("VAPI_KEY") or os.getenv("VAPI_PRIVATE_KEY")
+        vapi_key = os.getenv("VAPI_PRIVATE_KEY")
         if not vapi_key:
-            return {"error": "VAPI_KEY not configured"}
+            return {"error": "VAPI_PRIVATE_KEY not configured"}
 
         client = VapiClient(vapi_key)
         assistant_id = os.getenv("VAPI_ASSISTANT_ID")

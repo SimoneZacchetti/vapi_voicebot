@@ -12,7 +12,7 @@ Create a **`.env`** file (do not commit it):
 
 | Variable | Purpose |
 |----------|---------|
-| `VAPI_KEY` or `VAPI_PRIVATE_KEY` | Backend: server-side chat, sessions, dashboard tools |
+| `VAPI_PRIVATE_KEY` | Backend: server-side chat, sessions, dashboard tools |
 | `VAPI_PUBLIC_KEY` | Browser: Vapi Web SDK (voice) |
 | `VAPI_ASSISTANT_ID` | Browser: which assistant to start |
 
@@ -71,7 +71,7 @@ pip install playwright && python -m playwright install chromium
 python scripts/scrape_codroipo_services.py
 ```
 
-Default output: `app/data/servizi_comunali_codroipo.json`.
+Default output: `app/data/servizi_comunali_hardcoded.json`.
 
 ## Vapi (agent, tool URLs, ngrok)
 
@@ -87,6 +87,6 @@ Appointments are **in-memory** (lost on restart). Service search is **keyword**-
 
 | Issue | What to do |
 |-------|------------|
-| `VAPI_KEY not configured` | Set `VAPI_KEY` or `VAPI_PRIVATE_KEY` in `.env` / the environment of the uvicorn process or containers. |
+| `VAPI_PRIVATE_KEY not configured` | Set `VAPI_PRIVATE_KEY` in `.env` / the environment of the uvicorn process or containers. |
 | Empty UI / 503 on `/` on the backend container | Expected if the backend image does not bundle `frontend/`; with Compose open the UI on **:8080**. |
 | No services found | Check `backend/app/data/`; regenerate JSON with the scraper above. |

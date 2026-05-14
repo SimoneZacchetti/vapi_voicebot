@@ -7,7 +7,7 @@ Prototipo FastAPI per un voicebot Vapi dedicato ai servizi comunali.
 - Python 3.10+ consigliato
 - `pip`
 - `ngrok` per esporre il backend in locale
-- `VAPI_KEY` per endpoint server-side chat
+- `VAPI_PRIVATE_KEY` per endpoint server-side chat
 - `VAPI_PUBLIC_KEY` e `VAPI_ASSISTANT_ID` per voice web
 
 ## 1. Creare il virtual environment
@@ -61,20 +61,6 @@ curl -X POST http://127.0.0.1:8000/tools/check_availability \
   -d '{"office":"Ufficio Anagrafe e Stato Civile","date":"2026-05-12"}'
 ```
 
-### Creazione appuntamento
-
-```bash
-curl -X POST http://127.0.0.1:8000/tools/create_appointment \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Mario Rossi","office":"Ufficio Anagrafe e Stato Civile","service":"Carta d identita elettronica CIE","date":"2026-05-12","time":"09:30"}'
-```
-
-### Lista appuntamenti
-
-```bash
-curl http://127.0.0.1:8000/appointments
-```
-
 ## 5. Esporre il backend con ngrok
 
 In un secondo terminale, con il server FastAPI attivo:
@@ -87,11 +73,8 @@ Usa l'URL pubblico generato da ngrok per configurare i custom tools di Vapi.
 
 ## 6. Endpoint da collegare a Vapi
 
-- `GET /health` per il controllo base dello stato del backend
-- `POST /tools/search_services` per rispondere a domande sui servizi comunali
+- `POST /tools/search_services` per elencare o cercare i servizi dal JSON hardcoded
 - `POST /tools/check_availability` per verificare gli slot disponibili
-- `POST /tools/create_appointment` per confermare una prenotazione
-- `GET /appointments` per ispezionare gli appuntamenti creati in memoria
 
 ## 6. Voice web con Vapi
 
@@ -127,7 +110,7 @@ Per generare il JSON da usare nel RAG locale puoi eseguire lo scraper (da `backe
 python scripts/scrape_codroipo_services.py
 ```
 
-Opzionale: `--output path/custom.json`. Default: `app/data/servizi_comunali_codroipo.json`.
+Opzionale: `--output path/custom.json`. Default: `app/data/servizi_comunali_hardcoded.json`.
 
 Se è la prima volta, installa anche il browser usato da Playwright:
 

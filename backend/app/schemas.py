@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 
 class SearchServicesRequest(BaseModel):
-    query: str = Field(min_length=1, description="Natural language query")
+    query: str = Field(default="", description="Natural language query")
 
 
 class SearchSource(BaseModel):

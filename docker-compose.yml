@@ -6,7 +6,6 @@ services:
     ports:
       - "8000:8000"
     environment:
-      VAPI_KEY: ${VAPI_KEY:-}
       VAPI_PRIVATE_KEY: ${VAPI_PRIVATE_KEY:-}
       VAPI_PUBLIC_KEY: ${VAPI_PUBLIC_KEY:-}
       VAPI_ASSISTANT_ID: ${VAPI_ASSISTANT_ID:-}
