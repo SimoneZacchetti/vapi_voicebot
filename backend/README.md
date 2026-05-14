@@ -58,7 +58,7 @@ curl -X POST http://127.0.0.1:8000/tools/search_services \
 ```bash
 curl -X POST http://127.0.0.1:8000/tools/check_availability \
   -H "Content-Type: application/json" \
-  -d '{"office":"Ufficio Anagrafe","date":"2026-05-12"}'
+  -d '{"office":"Ufficio Anagrafe e Stato Civile","date":"2026-05-12"}'
 ```
 
 ### Creazione appuntamento
@@ -66,7 +66,7 @@ curl -X POST http://127.0.0.1:8000/tools/check_availability \
 ```bash
 curl -X POST http://127.0.0.1:8000/tools/create_appointment \
   -H "Content-Type: application/json" \
-  -d '{"name":"Mario Rossi","office":"Ufficio Anagrafe","service":"Carta d'identita elettronica","date":"2026-05-12","time":"09:30"}'
+  -d '{"name":"Mario Rossi","office":"Ufficio Anagrafe e Stato Civile","service":"Carta d identita elettronica CIE","date":"2026-05-12","time":"09:30"}'
 ```
 
 ### Lista appuntamenti

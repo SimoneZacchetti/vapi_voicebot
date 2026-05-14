@@ -11,7 +11,25 @@ SCRAPED_DATA_FILE = Path(__file__).resolve().parent / "data" / "servizi_comunali
 
 
 def _data_file() -> Path:
-    return SCRAPED_DATA_FILE if SCRAPED_DATA_FILE.exists() else DATA_FILE
+    """Use scraped JSON only if at least one row has text fields; else `servizi_comunali.json`."""
+    if not SCRAPED_DATA_FILE.is_file():
+        return DATA_FILE
+    try:
+        raw = json.loads(SCRAPED_DATA_FILE.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return DATA_FILE
+    if not isinstance(raw, list) or not raw:
+        return DATA_FILE
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        if (item.get("description") or "").strip():
+            return SCRAPED_DATA_FILE
+        if item.get("required_documents"):
+            return SCRAPED_DATA_FILE
+        if (item.get("opening_hours") or "").strip():
+            return SCRAPED_DATA_FILE
+    return DATA_FILE
 
 
 def load_services() -> list[dict[str, Any]]:
@@ -37,6 +55,8 @@ def search_services(query: str, limit: int = 3) -> list[dict[str, Any]]:
                 str(service.get("title", "")),
                 str(service.get("office", "")),
                 str(service.get("description", "")),
+                str(service.get("opening_hours", "")),
+                str(service.get("location", "")),
                 " ".join(service.get("required_documents", [])),
             ]
         )

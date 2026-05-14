@@ -1,42 +1,372 @@
 [
   {
-    "title": "Carta d'identita elettronica",
-    "office": "Ufficio Anagrafe",
-    "description": "Rilascio e rinnovo della carta d'identita elettronica per i cittadini residenti.",
-    "required_documents": ["Documento di identita precedente", "Tessera sanitaria", "Fototessera recente"],
-    "opening_hours": "Lunedi-Venerdi 09:00-12:30, Martedi e Giovedi anche 14:30-16:30",
-    "location": "Piano terra, Palazzo Comunale, Via Roma 1"
+    "title": "Carta d'identita elettronica (CIE)",
+    "office": "Ufficio Anagrafe e Stato Civile",
+    "description": "Rilascio, rinnovo e duplicato della Carta d'identita elettronica per residenti e, nei casi previsti, per domiciliati. La CIE consente viaggi verso Paesi UE e include dati biometrici. Prima del rilascio si verifica la presenza in anagrafe e la validita dei documenti allegati. Per minori e interdetti valgono regole aggiuntive su presenza e deleghe.",
+    "required_documents": [
+      "Documento di identita precedente se rinnovo",
+      "Tessera sanitaria o codice fiscale",
+      "Fototessera formato ICAO recente",
+      "Certificato di nascita per prima CIE o iscrizione AIRE",
+      "Delega e documento del delegante se si presenta un delegato"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30; Martedi e Giovedi anche 14:30-16:00 (solo su appuntamento per alcuni sportelli).",
+    "location": "Palazzo Municipale, piano terra, Piazza del Municipio 1, Codroipo (UD)"
   },
   {
-    "title": "Cambio di residenza",
-    "office": "Ufficio Anagrafe",
-    "description": "Procedura per dichiarare il trasferimento della residenza in un nuovo indirizzo.",
-    "required_documents": ["Modulo di dichiarazione", "Documento di identita", "Contratto di affitto o titolo di proprieta"],
-    "opening_hours": "Lunedi-Venerdi 09:00-12:30",
-    "location": "Piano terra, Palazzo Comunale, Via Roma 1"
+    "title": "Cambio di residenza e dichiarazione di dimora",
+    "office": "Ufficio Anagrafe e Stato Civile",
+    "description": "Iscrizione anagrafica per chi si trasferisce nel Comune o varia indirizzo interno. Si presenta dichiarazione con documentazione probatoria del titolo di occupazione dell'alloggio. Per cittadini UE e extra-UE esistono modulistiche e termini diversi. Il cambio puo essere effettuato online con SPID per i casi semplificati o in sportello per pratiche complesse.",
+    "required_documents": [
+      "Modulo di dichiarazione di residenza compilato",
+      "Documento di identita valido",
+      "Contratto di locazione registrato o atto di compravendita",
+      "Ultima bolletta utenze se richiesta per verifica occupazione",
+      "Permesso di soggiorno in corso di validita per cittadini extra-UE"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30; appuntamento consigliato per famiglie numerose.",
+    "location": "Palazzo Municipale, piano terra, sportello Anagrafe, Codroipo"
   },
   {
-    "title": "Certificati anagrafici",
-    "office": "Ufficio Servizi Demografici",
-    "description": "Emissione di certificati di stato di famiglia, residenza, nascita e cittadinanza.",
-    "required_documents": ["Documento di identita", "Dati anagrafici della persona interessata"],
-    "opening_hours": "Lunedi, Mercoledi e Venerdi 09:00-13:00",
-    "location": "Piano terra, Palazzo Comunale, Via Roma 1"
+    "title": "Certificati anagrafici e di stato civile",
+    "office": "Ufficio Anagrafe e Stato Civile",
+    "description": "Emissione di certificati di residenza, stato di famiglia, di nascita, matrimonio, morte e di cittadinanza quando competenza comunale. I certificati anagrafici possono essere richiesti anche online tramite ANPR con SPID. In sportello si possono richiedere copie conformi e apostille su documenti comunali.",
+    "required_documents": [
+      "Documento di identita del richiedente",
+      "Dati anagrafici completi dell'intestatario (nome, cognome, data e luogo di nascita)",
+      "Codice fiscale o tessera sanitaria",
+      "Autocertificazione o delega se si richiede per terzi"
+    ],
+    "opening_hours": "Lunedi, Mercoledi e Venerdi 8:30-13:00; Martedi 8:30-12:30.",
+    "location": "Palazzo Municipale, piano terra, Codroipo"
   },
   {
-    "title": "Tributi comunali",
+    "title": "Pubblicazioni di matrimonio e celebrazioni civili",
+    "office": "Ufficio Anagrafe e Stato Civile",
+    "description": "Deposito delle pubblicazioni di matrimonio, fissazione della data di celebrazione civile presso la Sala Consiliare o altro luogo autorizzato. Si forniscono informazioni su nulla osta, matrimoni con cittadini stranieri e traduzioni legalizzate. La celebrazione richiede testimoni e documenti di identita validi.",
+    "required_documents": [
+      "Domanda di pubblicazione di matrimonio",
+      "Documenti di identita degli sposi",
+      "Atto di nascita o estratto per riassunto",
+      "Certificato di libero stato o autocertificazione dove ammessa",
+      "Nulla osta consolare per cittadini stranieri se applicabile"
+    ],
+    "opening_hours": "Su appuntamento: Lunedi-Venerdi 9:00-12:00 e 14:30-16:30.",
+    "location": "Palazzo Municipale, primo piano, Stato civile, Codroipo"
+  },
+  {
+    "title": "Iscrizione AIRE - residenti all'estero",
+    "office": "Ufficio Anagrafe e Stato Civile",
+    "description": "Iscrizione all'Anagrafe degli Italiani Residenti all'Estero per cittadini italiani che trasferiscono la residenza all'estero. Consente servizi consolari e adempimenti fiscali. Si consiglia di aggiornare l'indirizzo estero ad ogni trasferimento. Parte delle pratiche e gestibile tramite portale Fast It con SPID.",
+    "required_documents": [
+      "Modulo AIRE compilato",
+      "Passaporto o carta d'identita italiana",
+      "Documento di identita estero o permesso nel Paese di soggiorno",
+      "Prova dell'indirizzo estero (utenza, contratto)"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30.",
+    "location": "Palazzo Municipale, sportello Anagrafe, Codroipo"
+  },
+  {
+    "title": "Prenotazione appuntamento sportelli demografici",
+    "office": "Ufficio Anagrafe e Stato Civile",
+    "description": "Prenotazione obbligatoria per molti servizi anagrafici e stato civile al fine di ridurre le attese. Si possono prenotare slot da 15 minuti per CIE, residenza, certificati e matrimoni. In caso di impossibilita a presentarsi, cancellare o spostare l'appuntamento con almeno 24 ore di anticipo.",
+    "required_documents": [
+      "Documento di identita",
+      "Codice prenotazione se gia emesso",
+      "Documentazione specifica del servizio richiesto"
+    ],
+    "opening_hours": "Slot prenotabili negli orari di apertura degli sportelli; alcuni servizi solo antemeridiani.",
+    "location": "Online o sportello CED, Palazzo Municipale, Codroipo"
+  },
+  {
+    "title": "IMU - dichiarazioni, rate e ravvedimento",
     "office": "Ufficio Tributi",
-    "description": "Informazioni e assistenza su IMU, TARI, accertamenti e pagamenti dei tributi comunali.",
-    "required_documents": ["Codice fiscale", "Eventuale avviso di pagamento", "Documentazione catastale"],
-    "opening_hours": "Lunedi-Venerdi 08:30-12:30",
-    "location": "Secondo piano, Palazzo Comunale, Via Roma 1"
+    "description": "Gestione dell'Imposta Municipale Unica su immobili: acconto e saldo, variazioni di possesso, agevolazioni prima casa, agricoli e fabbricati rurali. Informazioni su ravvedimento operoso in caso di omissioni o errori. I pagamenti avvengono tramite pagoPA o bollettini associati al codice ente.",
+    "required_documents": [
+      "Codice fiscale del contribuente",
+      "Visura catastale o dati foglio/mappale/subalterno",
+      "Atto di compravendita o successione se variazione di possesso",
+      "Documento di identita del delegato se delega"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30; Mercoledi anche 14:30-16:00.",
+    "location": "Palazzo Municipale, secondo piano, Ufficio Tributi, Codroipo"
   },
   {
-    "title": "Prenotazione appuntamento ufficio anagrafe",
-    "office": "Ufficio Anagrafe",
-    "description": "Prenotazione di un appuntamento per servizi anagrafici e documenti di identita.",
-    "required_documents": ["Documento di identita", "Eventuale precedente pratica"],
-    "opening_hours": "Servizio su appuntamento, Lunedi-Venerdi 09:00-12:30",
-    "location": "Sportello 3, Piano terra, Palazzo Comunale, Via Roma 1"
+    "title": "TARI - tariffe, variazioni e esenzioni",
+    "office": "Ufficio Tributi",
+    "description": "Tassa sui rifiuti: calcolo in base ai metri quadri e ai occupanti, variazioni per cambio utilizzo dell'immobile, riduzioni per utenze non imponenti rifiuti. Informazioni su contestazione avvisi e rateizzazione. La dichiarazione TARI va presentata entro i termini del bando annuale.",
+    "required_documents": [
+      "Modulo dichiarazione TARI",
+      "Planimetria catastale",
+      "Codice fiscale intestatari e condomino",
+      "Contratto di locazione se locatario diverso da proprietario"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30.",
+    "location": "Palazzo Municipale, secondo piano, Codroipo"
+  },
+  {
+    "title": "Canone patrimoniale e locazioni comunali",
+    "office": "Ufficio Tributi",
+    "description": "Gestione dei canoni per immobili di proprieta comunale concessi in locazione o comodato. Aggiornamenti ISTAT, morosita, rinnovi contrattuali. Per nuove assegnazioni valgono bandi pubblicati nell'Albo pretorio e sul sito istituzionale.",
+    "required_documents": [
+      "Contratto di locazione in essere",
+      "Documento di identita",
+      "IBAN per rimborsi o addebiti",
+      "Dichiarazione dei redditi se richiesta dal bando"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30 su appuntamento.",
+    "location": "Palazzo Municipale, Ufficio Tributi, Codroipo"
+  },
+  {
+    "title": "SUAP - avvio attivita produttive e comunicazioni",
+    "office": "SUAP",
+    "description": "Sportello Unico per le Attivita Produttive: SCIA per inizio esercizio, variazioni titolari, subingressi, cessazioni e comunicazioni per commercio, somministrazione di alimenti e bevande, laboratori artigianali. Coordinamento con ASL, VVF e Polizia locale quando necessario. Modulistica scaricabile dal portale regionale integrata con pratiche comunali.",
+    "required_documents": [
+      "Modulo SUAP regionale compilato",
+      "Planimetrie dei locali",
+      "Titolo di disponibilita del locale (locazione o proprieta)",
+      "Documento di identita del titolare e codice fiscale",
+      "Attestazioni ASL/VVF se richieste per la categoria"
+    ],
+    "opening_hours": "Martedi e Giovedi 9:00-13:00 sportello SUAP; consulenza telefonica Lun-Ven 8:30-12:30.",
+    "location": "Palazzo Municipale, piano terra, sportello SUAP, Codroipo"
+  },
+  {
+    "title": "Occupazione suolo pubblico (mercati, dehors, TOSAP)",
+    "office": "SUAP",
+    "description": "Autorizzazioni per occupazione temporanea del suolo pubblico: dehors, chioschi, manifestazioni, mercati settimanali. Tariffe giornaliere o stagionali secondo regolamento comunale. Richiesta con anticipo minimo di 30 giorni per eventi di grande afflusso.",
+    "required_documents": [
+      "Domanda su modulo comunale",
+      "Planimetria dell'area richiesta",
+      "Polizza RC se prevista dal regolamento",
+      "Schizzo delle dimensioni del dehors o stand",
+      "Permesso a costruire o SCIA se strutture fisse"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30; presentazione domande anche via PEC.",
+    "location": "Palazzo Municipale, SUAP, Codroipo"
+  },
+  {
+    "title": "Commercio su aree pubbliche - autorizzazioni straordinarie",
+    "office": "SUAP",
+    "description": "Autorizzazioni per vendita ambulante, mercati straordinari e fiere. Verifica compatibilita con regolamento polizia urbana e conflitti con attivita esistenti. Rilascio targhe identificative e vincoli orari per zona centro storico.",
+    "required_documents": [
+      "Domanda di autorizzazione commercio su area pubblica",
+      "Documento di identita e partita IVA o codice fiscale",
+      "Certificato penale del casellario giudiziale se richiesto",
+      "Polizza assicurativa RC professionale"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30.",
+    "location": "Palazzo Municipale, SUAP, Codroipo"
+  },
+  {
+    "title": "Edilizia privata - CILA, SCIA e comunicazioni",
+    "office": "Ufficio Edilizia Privata",
+    "description": "Presentazione di Comunicazioni di Inizio Lavori Asseverate, Segnalazioni Certifiche di Inizio Attivita per interventi su unita immobiliari esistenti. Verifica sanatorie, accatastamenti e conformita urbanistica. Per interventi su vincoli paesaggistici servono ulteriori atti regionali.",
+    "required_documents": [
+      "Modulo CILA/SCIA asseverato da tecnico abilitato",
+      "Elaborati grafici e relazione tecnica",
+      "Titolo edilizio preesistente se ristrutturazione",
+      "Visura catastale aggiornata",
+      "Pagamento diritti di segreteria e marca da bollo"
+    ],
+    "opening_hours": "Lunedi, Mercoledi e Venerdi 9:00-12:30; Martedi 14:30-16:30 solo previo appuntamento.",
+    "location": "Palazzo Municipale, secondo piano, Edilizia privata, Codroipo"
+  },
+  {
+    "title": "Certificato di destinazione urbanistica (CDU)",
+    "office": "Ufficio Edilizia Privata",
+    "description": "Rilascio del CDU che descrive vincoli e destinazioni d'uso dell'immobile ai fini di compravendita o mutuo. Tempi indicativi 30-60 giorni lavorativi. La richiesta puo essere presentata da proprietario o da professionista delegato.",
+    "required_documents": [
+      "Domanda di rilascio CDU",
+      "Identificativi catastali foglio, particella, subalterno",
+      "Documento di identita del richiedente",
+      "Marca da bollo e diritti di istruttoria"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30; protocollo h24 online.",
+    "location": "Palazzo Municipale, Edilizia privata, Codroipo"
+  },
+  {
+    "title": "Accesso agli atti e FOIA comunale",
+    "office": "CED - Urp",
+    "description": "Richiesta di accesso agli atti amministrativi, copie conformi di delibere e determine, e richieste di accesso civico semplificato o generalizzato secondo normativa. Identificazione precisa dell'atto o della materia velocizza la risposta. Alcuni dati sono esclusi per privacy o segreto istruttorio.",
+    "required_documents": [
+      "Domanda di accesso su modulo comunale",
+      "Documento di identita",
+      "Descrizione puntuale dell'atto o della pratica",
+      "Delega se richiesta da terzi"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30 e 14:00-16:00 Urp.",
+    "location": "Palazzo Municipale, piano terra, Urp, Codroipo"
+  },
+  {
+    "title": "Polizia locale - verbalivi, permessi e segnalazioni",
+    "office": "Polizia Locale",
+    "description": "Gestione verbali per violazioni al Codice della Strada e regolamenti comunali, permessi ZTL temporanei per carico/scarico, autorizzazioni transito mezzi pesanti. Segnalazioni per abbandono rifiuti e rumori: si consiglia documentazione fotografica e coordinate spazio-temporali.",
+    "required_documents": [
+      "Documento di identita",
+      "Libretto di circolazione per contestazioni o permessi veicolo",
+      "Verbale originale se ricorso o chiarimenti",
+      "Polizza RC se richiesta per eventi"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:00-13:00 sportello cittadini; emergenze 112.",
+    "location": "Comando Polizia Locale, Via Divisione Julia 15, Codroipo"
+  },
+  {
+    "title": "Mensa scolastica - iscrizioni, diete speciali e pagamenti",
+    "office": "Servizi Educativi",
+    "description": "Iscrizione al servizio di refezione scolastica per infanzia e primaria, gestione allergie e diete certificate, rateizzazione tramite pagoPA. Agevolazioni ISEE per famiglie con reddito sotto soglia secondo bando annuale. Comunicazione assenze entro le ore indicate dal regolamento per evitare addebiti.",
+    "required_documents": [
+      "Modulo iscrizione mensa firmato dai genitori",
+      "Certificato medico per diete speciali",
+      "ISEE corrente se richiesta tariffa agevolata",
+      "IBAN o modulo per addebito SDD",
+      "Codice fiscale del minore"
+    ],
+    "opening_hours": "Lunedi-Venerdi 9:00-12:30 (periodo iscrizioni esteso in agosto).",
+    "location": "Palazzo Municipale, Servizi educativi, primo piano, Codroipo"
+  },
+  {
+    "title": "Asilo nido comunale - iscrizione e graduatoria",
+    "office": "Servizi Educativi",
+    "description": "Iscrizione annuale e gestione graduatoria per accesso al nido d'infanzia comunale e convenzionati. Priorita per gemelli, disabilita e situazioni lavorative entrambi genitori occupati secondo punteggio. Open day a gennaio e maggio.",
+    "required_documents": [
+      "Domanda di iscrizione online o cartacea",
+      "Certificato di nascita del minore",
+      "Documento di identita dei genitori",
+      "Certificazione di lavoro o dichiarazione sostitutiva",
+      "ISEE universitario o ordinario secondo bando"
+    ],
+    "opening_hours": "Lunedi-Venerdi 9:00-13:00; sportello dedicato in periodo di bando.",
+    "location": "Palazzo Municipale, Servizi educativi, Codroipo"
+  },
+  {
+    "title": "Carta servizi alla persona - disabilita e anzianita",
+    "office": "Servizi Sociali",
+    "description": "Valutazione dei bisogni, progetto individualizzato, contributi per ausili, trasporto disabili, centri diurni e supporto caregiver. Accesso su segnalazione medica o sociale e colloquio con assistente sociale. Integrazione con ULSS per prestazioni sanitarie.",
+    "required_documents": [
+      "Certificazione di invalidita o documentazione medica",
+      "Documento di identita e certificato di residenza",
+      "ISEE sociale o ordinario",
+      "Delega per accompagnamento se applicabile"
+    ],
+    "opening_hours": "Lunedi-Mercoledi-Venerdi 9:00-13:00 previo appuntamento.",
+    "location": "Centro servizi sociali, Via Manin 8, Codroipo"
+  },
+  {
+    "title": "Contributi economici temporanei e buoni spesa",
+    "office": "Servizi Sociali",
+    "description": "Misure di sostegno per grave disagio economico su valutazione del Servizio sociale professionale. Domande periodiche collegate a bandi straordinari o emergenze. False dichiarazioni comportano decadenza e sanzioni.",
+    "required_documents": [
+      "Domanda su modulo approvato dal Comune",
+      "Documento di identita e codice fiscale di tutti i componenti",
+      "Certificazione ISEE o situazione reddituale",
+      "Autocertificazione stato di famiglia",
+      "Documentazione spese obbligate (affitto, utenze)"
+    ],
+    "opening_hours": "Su appuntamento con assistente sociale.",
+    "location": "Centro servizi sociali, Codroipo"
+  },
+  {
+    "title": "Biblioteca comunale - tessera, prestiti e sale studio",
+    "office": "Ufficio Cultura e Turismo",
+    "description": "Iscrizione gratuita o a tariffa simbolica per residenti, prestito libri e multimediali, accesso a banche dati e sale studio Wi-Fi. Eventi lettura per bambini e laboratori estivi. Proroga prestiti online con credenziali tessera.",
+    "required_documents": [
+      "Documento di identita e codice fiscale",
+      "Modulo di iscrizione minorenni firmato da genitore",
+      "Prova di residenza se non risulta in ANPR"
+    ],
+    "opening_hours": "Martedi-Sabato 9:00-13:00 e 15:00-19:00; Lunedi chiuso al pubblico.",
+    "location": "Biblioteca Civica, Largo della Cultura 2, Codroipo"
+  },
+  {
+    "title": "Manifestazioni, contributi a associazioni e sponsorizzazioni",
+    "office": "Ufficio Cultura e Turismo",
+    "description": "Presentazione di eventi culturali e sportivi sul territorio, richiesta di patrocinio gratuito o contributo economico secondo regolamento. Verifica assenza sovrapposizioni con manifestazioni analoghe e copertura assicurativa.",
+    "required_documents": [
+      "Domanda su modulo cultura",
+      "Statuto dell'associazione e verbale nomina rappresentante",
+      "Programma dettagliato e preventivo spese",
+      "Polizza RC evento",
+      "Dichiarazione disponibilita spazi pubblici"
+    ],
+    "opening_hours": "Lunedi-Venerdi 9:00-12:30; domande grandi eventi almeno 90 giorni prima.",
+    "location": "Palazzo Municipale, Ufficio Cultura, Codroipo"
+  },
+  {
+    "title": "Verde pubblico - potature, segnalazioni danni e richieste intervento",
+    "office": "Ufficio Tecnico - Manutenzioni",
+    "description": "Gestione richieste su alberi caduti, irrigazione parchi, danneggiamenti arredo urbano. Interventi su alberi di proprieta privata che insistono su suolo pubblico secondo normativa forestale. Priorita a situazioni di pericolo immediato.",
+    "required_documents": [
+      "Segnalazione con foto e geolocalizzazione",
+      "Dati di contatto del segnalante",
+      "Per alberi privati: relazione del agronomo se richiesta"
+    ],
+    "opening_hours": "Segnalazioni H24 sul portale; sportello Lun-Ven 8:30-12:30.",
+    "location": "Municipio, Ufficio tecnico, Via Roma 12, Codroipo"
+  },
+  {
+    "title": "Protezione civile - iscrizione volontari e corsi",
+    "office": "Protezione Civile Comunale",
+    "description": "Iscrizione al gruppo comunale di protezione civile, calendario esercitazioni e corsi BLSD, gestione magazzino beni di prima necessita. I volontari operano su coordinamento regionale e prefettura in emergenza.",
+    "required_documents": [
+      "Domanda di iscrizione volontariato",
+      "Documento di identita",
+      "Certificato medico di idoneita semplice",
+      "Autorizzazione trattamento dati personali"
+    ],
+    "opening_hours": "Primo Mercoledi del mese 20:30-22:00 sede gruppo; email per appuntamenti.",
+    "location": "Sede Protezione Civile, Via Stazione 4, Codroipo"
+  },
+  {
+    "title": "Pagamento multe, diritti di segreteria e pagoPA",
+    "office": "CED - Urp",
+    "description": "Supporto per pagamento sanzioni amministrative, bollo digitale, marca da bollo e avvisi pagoPA generati dal Comune. Per rateizzazioni multe codice della strada rivolgersi a Polizia locale o Prefettura secondo competenza.",
+    "required_documents": [
+      "Avviso di pagamento o bollettino",
+      "Documento di identita",
+      "Codice avviso pagoPA o IUV"
+    ],
+    "opening_hours": "Lunedi-Venerdi 8:30-12:30 e 14:00-16:00.",
+    "location": "Palazzo Municipale, Urp, Codroipo"
+  },
+  {
+    "title": "Concorsi pubblici e selezioni del personale",
+    "office": "Ufficio Personale",
+    "description": "Pubblicazione bandi per assunzioni a tempo determinato e indeterminato, mobilita esterna, collaborazioni occasionali. Informazioni su requisiti, prove e termini di presentazione domanda telematica. Archivio bandi su Albo pretorio on line.",
+    "required_documents": [
+      "Domanda telematica firmata digitalmente",
+      "Documento di identita e codice fiscale",
+      "Titoli di studio e certificazioni richieste dal bando",
+      "Autodichiarazioni sostitutive se ammesse"
+    ],
+    "opening_hours": "Lunedi-Venerdi 10:00-13:00 solo informazioni; domande solo online.",
+    "location": "Palazzo Municipale, Ufficio Personale, terzo piano, Codroipo"
+  },
+  {
+    "title": "Mobilita dolce - contributi bicicletta elettrica",
+    "office": "Ufficio Ambiente e Mobilita",
+    "description": "Bando annuale per contributi all'acquisto di biciclette e ciclomotori elettrici da parte di residenti. Plafond limitato, assegnazione in ordine cronologico di domanda valida. Non cumulabile con altri incentivi regionali se vietato dal bando.",
+    "required_documents": [
+      "Domanda di contributo",
+      "Fattura d'acquisto intestata al richiedente",
+      "Documento di identita e residenza in Comune",
+      "IBAN per accredito",
+      "Dichiarazione possesso mezzo per almeno 12 mesi"
+    ],
+    "opening_hours": "Apertura sportello solo in finestra bando: vedi avviso sul sito.",
+    "location": "Palazzo Municipale, Ufficio Ambiente, Codroipo"
+  },
+  {
+    "title": "Segnalazione guasti illuminazione pubblica e idrica",
+    "office": "Ufficio Tecnico - Manutenzioni",
+    "description": "Raccolta segnalazioni per lampade spente, perdite su rete idrica comunale e tombini ostruiti. Intervento entro tempi tecnici compatibili con appalti di manutenzione. Per allacci privati non e competenza diretta del Comune.",
+    "required_documents": [
+      "Segnalazione online con foto",
+      "Indirizzo preciso e riferimento palo o valvola se noto",
+      "Recapito telefonico"
+    ],
+    "opening_hours": "Portale 24/7; urgenze fuori orario numero verde sul sito.",
+    "location": "Gestione centralizzata; sportello Urp per follow-up, Codroipo"
   }
 ]
