@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import os
+import json
+import re
+from html import unescape
 
 from fastapi import APIRouter
 
@@ -16,16 +19,61 @@ def extract_vapi_reply(response: dict) -> str:
         for item in output:
             if isinstance(item, dict):
                 content = item.get("content")
+                # If content is a plain string, return it (sanitized from HTML)
                 if isinstance(content, str) and content.strip():
-                    return content
+                    c = content.strip()
+                    if c.lower().lstrip().startswith("<!doctype") or c.lstrip().startswith("<html") or '<' in c:
+                        txt = re.sub(r'<[^>]+>', '', c)
+                        cleaned = unescape(txt).strip()
+                        if re.search(r'[<>]|https?://', cleaned):
+                            return "Assistant returned non-textual content. Check server logs."
+                        return cleaned
+                    return c
+
+                # If content is a dict, try to extract a human-readable field
+                if isinstance(content, dict):
+                    # common keys that may contain the assistant text
+                    for key in ("answer", "text", "content", "message", "reply"):
+                        val = content.get(key)
+                        if isinstance(val, str) and val.strip():
+                            return val
+
+                    # If the dict contains structured sources and an 'answer' is missing,
+                    # try to build a readable summary (e.g., list service titles)
+                    sources = content.get("sources")
+                    if isinstance(sources, list) and sources:
+                        titles = [s.get("title") or s.get("name") for s in sources if isinstance(s, dict) and (s.get("title") or s.get("name"))]
+                        if titles:
+                            return "Found services: " + ", ".join(titles)
+
+                    # Fallback: serialize the dict to a compact readable JSON string
+                    try:
+                        return json.dumps(content, ensure_ascii=False)
+                    except Exception:
+                        return str(content)
 
     message = response.get("message")
     if isinstance(message, str) and message.strip():
-        return message
+        # sanitize HTML if present
+        msg = message.strip()
+        if msg.lower().lstrip().startswith("<!doctype") or msg.lstrip().startswith("<html") or '<' in msg:
+            text = re.sub(r'<[^>]+>', '', msg)
+            cleaned = unescape(text).strip()
+            if re.search(r'[<>]|https?://', cleaned):
+                return "Assistant returned non-textual content. Check server logs."
+            return cleaned
+        return msg
 
     reply = response.get("reply")
     if isinstance(reply, str) and reply.strip():
-        return reply
+        msg = reply.strip()
+        if msg.lower().lstrip().startswith("<!doctype") or msg.lstrip().startswith("<html") or '<' in msg:
+            text = re.sub(r'<[^>]+>', '', msg)
+            cleaned = unescape(text).strip()
+            if re.search(r'[<>]|https?://', cleaned):
+                return "Assistant returned non-textual content. Check server logs."
+            return cleaned
+        return msg
 
     return str(response)
 

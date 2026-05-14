@@ -1,84 +1,47 @@
 {
+  "id": "cd7d66d7-7861-4e95-9e5a-74a0119ac588",
+  "orgId": "5e8d6054-8475-4525-a34f-414c7108ef51",
   "name": "Municipio Codroipo Bot",
-  "model": {
-    "provider": "openai",
-    "model": "gpt-4",
-    "temperature": 0.7,
-    "maxTokens": 1000
-  },
   "voice": {
-    "provider": "openai",
-    "voiceId": "nova"
+    "voiceId": "Elliot",
+    "provider": "vapi"
   },
-  "firstMessage": "Ciao! 👋 Sono l'assistente IA per i servizi del Comune di Codroipo. Come posso aiutarti oggi?",
-  "systemPrompt": "Tu sei un assistente IA amichevole e professionale per i servizi comunali del Comune di Codroipo.\n\nIl tuo ruolo è aiutare i cittadini a:\n1. Trovare servizi comunali cercando per parola chiave\n2. Verificare la disponibilità di appuntamenti\n\nIstruzioni importanti:\n- Rispondi sempre in italiano\n- Quando l'utente chiede info su servizi, usa lo strumento \"search_services\"\n- Quando serve controllare disponibilità, usa \"check_availability\"\n- I tool leggono i dati dal JSON hardcoded del backend\n- Sii cortese, efficiente e professionale\n- Se l'utente non specifica una data, chiedi di fornirla nel formato YYYY-MM-DD\n- Per gli orari disponibili, utilizza sempre il formato HH:MM (es. 09:30)\n\nCerca sempre di fornire risposte complete usando i tool disponibili.",
-  "tools": [
-    {
-      "name": "search_services",
-      "type": "server",
-      "description": "Cerca servizi comunali per parola chiave. Usa questo tool quando l'utente chiede informazioni su servizi disponibili.",
-      "server": {
-        "url": "https://book-nuclei-deafening.ngrok-free.dev/tools/search_services",
-        "method": "POST"
-      },
-      "messages": [
-        {
-          "type": "request-start",
-          "content": "Ricerca in corso..."
-        },
-        {
-          "type": "request-complete",
-          "content": "Ho trovato i risultati."
-        }
-      ],
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "query": {
-            "type": "string",
-            "description": "Parola chiave per cercare servizi (es. 'anagrafe', 'tasse', 'patente'). Se omessa o vuota, il backend restituisce i servizi disponibili dal JSON hardcoded."
-          }
-        },
-        "required": []
+  "createdAt": "2026-05-11T15: 02: 20.836Z",
+  "updatedAt": "2026-05-14T17: 21: 21.374Z",
+  "model": {
+    "model": "gpt-4o-mini",
+    "toolIds": [
+      "f5aa8958-a593-46fe-9a87-eb8ac6a950eb"
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "content": "Tu sei un assistente IA amichevole e professionale per i servizi comunali del Comune di Codroipo.\n\nIl tuo ruolo è aiutare i cittadini a:\n1. Trovare servizi comunali cercando per parola chiave\n2. Verificare la disponibilità di appuntamenti\n3. Prenotare appuntamenti\n\nIstruzioni importanti:\n- Rispondi sempre in italiano\n- Quando l'utente chiede info su servizi, usa lo strumento \"search_services\"\n- Quando serve controllare disponibilità, usa \"check_availability\"\n- Per prenotare, usa \"create_appointment\"\n- Sii cortese, efficiente e professionale\n- Se l'utente non specifica una data, chiedi di fornirla\n- Per gli orari disponibili, utilizza sempre il formato HH:MM (es. 09: 30)\n\nCerca sempre di fornire risposte complete usando i tool disponibili."
       }
-    },
-    {
-      "name": "check_availability",
-      "type": "server",
-      "description": "Controlla disponibilità appuntamenti per un ufficio in una data specifica.",
-      "server": {
-        "url": "https://book-nuclei-deafening.ngrok-free.dev/tools/check_availability",
-        "method": "POST"
-      },
-      "messages": [
-        {
-          "type": "request-start",
-          "content": "Verifico la disponibilità..."
-        },
-        {
-          "type": "request-complete",
-          "content": "Ho controllato gli slot disponibili."
-        }
-      ],
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "office": {
-            "type": "string",
-            "description": "Nome dell'ufficio/servizio (es. 'Anagrafe e stato civile')"
-          },
-          "date": {
-            "type": "string",
-            "description": "Data in formato YYYY-MM-DD (es. 2026-05-20)"
-          }
-        },
-        "required": ["office", "date"]
+    ],
+    "provider": "openai"
+  },
+  "firstMessage": "Come posso aiutarti?",
+  "voicemailMessage": "Please call back when you're available.",
+  "endCallMessage": "Goodbye.",
+  "transcriber": {
+    "model": "gemini-2.0-flash",
+    "language": "Italian",
+    "provider": "google",
+    "fallbackPlan": {
+      "autoFallback": {
+        "enabled": true
       }
     }
-  ],
-  "clientMessages": ["assistant.speechStarted", "transcript", "speech-update"],
-  "language": "it-IT",
-  "hipaaEnabled": false,
-  "forwardingPhoneNumber": null,
-  "variableValues": {}
+  },
+  "analysisPlan": {
+    "summaryPlan": {
+      "enabled": false
+    },
+    "successEvaluationPlan": {
+      "enabled": false
+    }
+  },
+  "backgroundDenoisingEnabled": true,
+  "isServerUrlSecretSet": false
 }

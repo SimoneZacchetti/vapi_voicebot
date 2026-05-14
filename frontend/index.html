@@ -520,22 +520,63 @@
                 // Create server-side conversation session to keep memory
                 try {
                     const sessRes = await fetch(`${API_BASE}/api/session`, { method: 'POST' });
-                    const sessJson = await sessRes.json();
+                            list.innerHTML = "<small style='color: #999;'>Nessun appuntamento</small>"; 
+                        } else {
+                            // Render appointments normally
+                            list.innerHTML = data
+                                .map(
+                                    (apt) =>
+                                        `<div class="appointment-item">
+                            <strong>${apt.appointment_id}</strong>
+                            <small><strong>${apt.name}</strong><br>
+                            ${apt.office} - ${apt.service}<br>
+                            📅 ${apt.date} ⏰ ${apt.time}</small>
+                        </div>`
+                                )
+                                .join("");
                     if (sessJson && sessJson.conversationId) {
-                        vapiConfig.conversationId = sessJson.conversationId;
-                    }
-                } catch (e) {
-                    console.warn('Unable to create conversation session:', e);
-                }
+                        }
 
-                vapiInstance.on('message', async (message) => {
-                    if (message.type === 'transcript') {
-                        const role = message.role === 'assistant' ? 'bot' : 'user';
-                        const text = message.transcript || '';
-                        addMessage(text, role);
+                        // Also fetch hardcoded service info to show booking instructions
+                        try {
+                            const svcRes = await fetch(`${API_BASE}/tools/search_services`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+                            const svcJson = await svcRes.json();
+                            // svcJson.answer and svcJson.sources may be present; we want the specific service details
+                            // If sources present, pick the one titled like 'Prenotazione appuntamento'
+                            let bookingInfoHtml = '';
+                            if (Array.isArray(svcJson.sources) && svcJson.sources.length > 0) {
+                                // Try to find the detailed service from backend data by using first source title
+                                const firstTitle = svcJson.sources[0].title || null;
+                                if (firstTitle) {
+                                    // fetch full services and search for matching title
+                                    const allRes = await fetch(`${API_BASE}/tools/search_services`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query: firstTitle }) });
+                                    const allJson = await allRes.json();
+                                    if (Array.isArray(allJson.sources) && allJson.sources.length > 0) {
+                                        // we have minimal source info; instead, request the hardcoded JSON directly via a small endpoint
+                                    }
+                                }
+                            }
 
-                        // If user transcript, forward to backend chat with conversationId
-                        if (role === 'user' && text && vapiConfig && vapiConfig.conversationId) {
+                            // As a fallback, load the hardcoded services JSON directly from the backend static path
+                            try {
+                                const svcFile = await fetch(`${API_BASE}/api/services`);
+                                if (svcFile.ok) {
+                                    const services = await svcFile.json();
+                                    const booking = services.find(s => s.title && s.title.toLowerCase().includes('prenotazione')) || services.find(s => s.title && s.title.toLowerCase().includes('prenotazione appuntamento'));
+                                    if (booking) {
+                                        bookingInfoHtml = `<div style="margin-top:8px;padding:10px;background:#f9f9ff;border-radius:6px;border-left:3px solid #667eea;"><strong>Info prenotazione</strong><div style="font-size:12px;color:#444;margin-top:6px;">${booking.description}</div><div style="font-size:12px;color:#666;margin-top:6px;"><strong>Orari:</strong> ${booking.opening_hours}<br><strong>Luogo:</strong> ${booking.location}</div></div>`;
+                                    }
+                                }
+                            } catch (e) {
+                                // ignore
+                            }
+
+                            if (bookingInfoHtml) {
+                                list.insertAdjacentHTML('afterbegin', bookingInfoHtml);
+                            }
+                        } catch (e) {
+                            // ignore service info errors
+                        }
                             try {
                                 const res = await fetch(`${API_BASE}/api/chat`, {
                                     method: 'POST',

@@ -1,17 +1,22 @@
-# Configurazione Vapi Agent
+# Vapi Agent Configuration
 
-## Istruzioni Setup
+## Setup Instructions
 
-### 1. Accedi a Vapi Dashboard
-- Vai su https://dashboard.vapi.ai
-- Crea un nuovo Assistant
+### 1. Access Vapi Dashboard
+- Go to https://dashboard.vapi.ai
+- Create a new Assistant
 
-### 2. Configurazione Base
-- **Nome:** "Municipio Codroipo Bot"
-- **Lingua:** Italian (IT)
-- **Modello:** GPT-4 (o gpt-4-turbo)
+### 2. Base Configuration
+- **Name:** "Municipio Codroipo Bot"
+- **Language:** Italian (IT)
+- **Model:** GPT-4 (or gpt-4-turbo)
+- **First Message:** "Ciao! 👋 Sono l'assistente IA per i servizi del Comune di Codroipo. Come posso aiutarti oggi?"
 
-### 3. System Prompt (Italiano)
+### 2b. Voice Configuration
+- **Provider:** OpenAI
+- **Voice ID:** nova
+
+### 3. System Prompt
 
 ```
 Tu sei un assistente IA amichevole e professionale per i servizi comunali del Comune di Codroipo.
@@ -26,28 +31,28 @@ Istruzioni importanti:
 - Quando serve controllare disponibilità, usa "check_availability"
 - I tool leggono i dati dal JSON hardcoded del backend
 - Sii cortese, efficiente e professionale
-- Se l'utente non specifica una data, chiedi di fornirla
+- Se l'utente non specifica una data, chiedi di fornirla nel formato YYYY-MM-DD
 - Per gli orari disponibili, utilizza sempre il formato HH:MM (es. 09:30)
 
 Cerca sempre di fornire risposte complete usando i tool disponibili.
 ```
 
-### 4. Aggiungi Tools
+### 4. Add Tools
 
 #### Tool 1: Search Services
 ```
 Name: search_services
 Type: Server URL
-URL: https://book-nuclei-deafening.ngrok-free.dev/tools/search_services
+URL: <your-backend-url>/tools/search_services
 Method: POST
-Description: Cerca servizi comunali per parola chiave
+Description: Search municipal services by keyword (optional: if empty, returns all services)
 Function name: search_services
 
 Request parameters:
 {
   "query": {
     "type": "string",
-    "description": "Parola chiave per cercare servizi (es. 'anagrafe', 'tasse')"
+    "description": "Keyword to search services (e.g., 'anagrafe', 'tasse'). Optional: if omitted returns all services"
   }
 }
 ```
@@ -56,70 +61,71 @@ Request parameters:
 ```
 Name: check_availability
 Type: Server URL
-URL: https://book-nuclei-deafening.ngrok-free.dev/tools/check_availability
+URL: <your-backend-url>/tools/check_availability
 Method: POST
-Description: Controlla disponibilità appuntamenti
+Description: Check appointment availability for a specific date (both office and date required)
 
 Request parameters:
 {
   "office": {
     "type": "string",
-    "description": "Nome dell'ufficio/servizio"
+    "description": "Office/service name (required)"
   },
   "date": {
     "type": "string",
-    "description": "Data in formato YYYY-MM-DD (es. 2026-05-20)"
+    "description": "Date in YYYY-MM-DD format (e.g., 2026-05-20) (required)"
   }
 }
 ```
 
-### 5. Esponi il Backend Locale
+### 5. Expose Backend Locally
 
-**Opzione A: ngrok (Veloce)**
+**Option A: ngrok (Fast)**
 ```bash
+# Install ngrok from https://ngrok.com (free account)
 ngrok http 8000
-# Copia l'URL pubblico (es. https://book-nuclei-deafening.ngrok-free.dev)
-# Usa questo URL nei tool Vapi
+# Copy the public URL (e.g., https://your-unique-id.ngrok-free.dev)
+# Use this URL as <your-backend-url> in Vapi tools (without /tools/search_services)
 ```
 
-**Opzione B: Azure/AWS VM**
-- Deploya il backend su una VM con IP pubblico
-- Usa l'IP/dominio nei tool
+**Option B: Azure/AWS VM**
+- Deploy backend to a VM with public IP
+- Use the IP/domain in tools
 
 ### 6. Test Voice Interaction
 
-Nel Vapi dashboard, prova il chatbot dicendo:
+In the Vapi dashboard, test the chatbot by saying:
 
-**Test 1: Ricerca Servizi**
+**Test 1: Service Search**
 > "Voglio informazioni sulla anagrafe"
 
-**Test 2: Disponibilità**
+**Test 2: Availability**
 > "Che ore sono libere per l'anagrafe il 20 maggio?"
 
-## Integrazione Web Widget
+## Web Widget Integration
 
-Per aggiungere il chatbot al sito web:
+The project uses the **official Vapi Web SDK** (`frontend/index.html`):
 
-```html
-<script>
-  window.voiceflow={config:{apiEndpoint:"https://general-runtime.voiceflow.com",projectID:"your-vapi-assistant-id"}};
-  // O usa il widget Vapi ufficiale dal dashboard
-</script>
-```
+1. Fetches config from backend (`GET /api/config`)
+2. Initializes Vapi Web SDK with `publicKey` and `assistantId`
+3. Dynamically loads Vapi script
+4. Enables voice interaction via browser
+
+No additional setup needed: the frontend already uses the Vapi integration.
 
 ## Troubleshooting
 
 **"Tool error: Connection refused"**
-- Verifica che il server backend sia online
-- Se usi ngrok, assicurati che il tunnel sia attivo
-- Controlla le URL dei tool in Vapi
+- Verify backend server is online
+- If using ngrok, ensure tunnel is active
+- Check tool URLs in Vapi
 
 **"401 Unauthorized"**
-- Assicurati che VAPI_PRIVATE_KEY in .env sia corretta
-- Rigenera la chiave dal dashboard
+- Ensure `VAPI_PRIVATE_KEY` in .env is correct
+- Regenerate the key from dashboard
 
-**Agente non risponde**
-- Verifica che i tool siano configurati correttamente
-- Controlla i log del backend
-- Testa manualmente gli endpoint con curl
+**Agent not responding**
+- Verify tools are configured correctly
+- Check backend logs
+- Test endpoints manually with curl
 

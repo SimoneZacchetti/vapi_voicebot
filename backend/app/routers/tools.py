@@ -13,6 +13,7 @@ from app.schemas import (
     SearchSource,
 )
 from app.services_data import search_services
+from app.services_data import load_services
 
 router = APIRouter(tags=["tools"])
 
@@ -63,3 +64,9 @@ def tool_create_appointment(payload: CreateAppointmentRequest) -> CreateAppointm
         appointment_id=str(result["appointment_id"]),
         message=str(result["message"]),
     )
+
+
+@router.get("/api/services")
+def api_list_services() -> list[dict]:
+    """Return the full hardcoded services JSON for UI consumption."""
+    return load_services()
